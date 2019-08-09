@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="js/jquery-3.4.1.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <title>Niloy's Game Website</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <a class="navbar-brand" href="#">Meme Cat</a>
+        <ul class="navbar-nav ml-auto">
+            <% if (typeof loggedin == 'undefined' || loggedin == 'No') { %>
+                <li class="nav-item">
+                    <button type="button" class="btn border-dark btn-outline-light" data-toggle="modal" data-target="#login">
+                                    Login
+                                </button>
+                </li>
+                <li class="nav-item">
+                    <button type="button" class="btn border-dark btn-outline-light" data-toggle="modal" data-target="#signup">
+                            Sign Up
+                        </button>
+                </li>
+
+                <% }else{%>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/personalprofile">
+                            <%= email %>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/messages">Messages</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">Logout</a>
+                    </li>
+                    <%}%>
+
+        </ul>
+
+
+    </nav>
+
+    <!-- The Modal -->
+    <div class="modal fade" id="signup" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered" role='document'>
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header ">
+                    <h4 class="modal-title">Sign Up</h4>
+
+                    <button type="button btn-primary-outline" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <form action="/signup" method="POST">
+                        <div class="form-group">
+                            <label for="email">Email address:</label>
+                            <input type="email" class="form-control" id="email" name="email">
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Password:</label>
+                            <input type="password" class="form-control" id="pwd" name="pwd">
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group form-check">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" type="checkbox"> Remember me
+                                  </label>
+                            </div>
+                            <button type="submit" name="submit" class="btn btn-primary">Sign Up</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Modal footer -->
+                <!-- <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div> -->
+
+            </div>
+        </div>
+    </div>
+
+    <!-- The Modal -->
+    <div class="modal fade" id="login" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered" role='document'>
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header ">
+                    <h4 class="modal-title">Sign Up</h4>
+
+                    <button type="button btn-primary-outline" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <form action="/login" method="POST">
+                        <div class="form-group">
+                            <label for="email">Email address:</label>
+                            <input type="email" class="form-control" id="email" name="email">
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Password:</label>
+                            <input type="password" class="form-control" id="pwd" name="pwd">
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group form-check">
+                                <label class="form-check-label">
+                                        <input class="form-check-input" type="checkbox"> Remember me
+                                      </label>
+                            </div>
+                            <button type="submit" name="submit" class="btn btn-primary">Login</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Modal footer -->
+                <!-- <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div> -->
+
+            </div>
+        </div>
+    </div>
+
+    <div class="jumbotron jumbotron-fluid">
+        <h1>Welcome to Niloy's Website</h1>
+        <p>This webpage is one of my personal projects</p>
+        <% if (typeof pass != 'undefined') { %>
+            <h2>
+                <%= pass %>
+                    print this
+            </h2>
+            <% } %>
+                <% if (typeof errmsg != 'undefined') { %>
+                    <h2>
+                        <%= errmsg %>
+
+                    </h2>
+                    <% } %>
+    </div>
+
+
+</body>
+
+</html>

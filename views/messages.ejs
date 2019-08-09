@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <title>Niloy's Game Website</title>
+</head>
+
+<body>
+    <script>
+        console.log("alert this shit");
+        $(document).ready(function() {
+
+            function getpastmess() {
+                $.getJSON("/getpastmessages", function(result) {
+
+                    $.each(result, function(i, field) {
+                        $("#mess").append($('<span>' + field["from"] + '</span>').css({
+                            'color': 'red',
+                            'font-weight': 'bold'
+                        }));
+                        $("#mess").append(' :- ' + field['msg'] + "<br><br>");
+                    });
+
+                });
+            };
+
+            setTimeout(getpastmess(), 2000);
+
+            function sendmess(m) {
+                $.post('/sendmessage', {
+                        'msg': m
+                    },
+                    function(data, status, jqXHR) {
+                        $('#mess').empty();
+                        getpastmess();
+                    }
+                )
+            }
+            $('#smessbutt').click(function() {
+                var text = $('#msg').val();
+                $('msg').val('');
+                sendmess(text);
+            })
+
+        });
+    </script>
+
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <a class="navbar-brand" href="/">Meme Cat</a>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/personalprofile">
+                    <%= email %>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/logout">Logout</a>
+            </li>
+        </ul>
+
+
+    </nav>
+
+    <div class="jumbotron jumbotron-fluid">
+        <h3 class="text-center">Welcome to the chatroom. <span class="text-primary">Say hello!</span></h3>
+    </div>
+    <!--
+        This next part is going to be the chatting area.
+        The designs are going to need some work but 
+        I'm certain that I should be able to implement the
+        core features right now.
+    -->
+    <div id="mess">
+
+
+    </div>
+
+    <div class="form-group col-md-8">
+        <input type="text" class="form-control" id="msg" id="textmess" placeholder="Message">
+    </div>
+    <div class="form-group col-md-4">
+        <button type="submit" id="smessbutt" class="btn btn-primary mb-2">Send</button>
+    </div>
+</body>
+
+</html>
